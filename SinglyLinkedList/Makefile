@@ -6,8 +6,8 @@ OFILES = ListNode.o ListIterator.o SinglyLinkedList.o \
 .SUFFIXES: .o .cpp
 
 main: $(OFILES)
-	  $(CXX) $(CXXFLAGS) -o test $(OFILES)
+	  $(CXX) $(CXXFLAGS) $(OFILES)
 
 clean:
-	  /bin/rm -f *.o *~
+	  /bin/rm -f *.o *~ a.out
 
