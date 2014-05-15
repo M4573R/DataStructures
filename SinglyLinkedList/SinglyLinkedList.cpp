@@ -1,10 +1,10 @@
 #include "SinglyLinkedList.h"
 
 SinglyLinkedList::SinglyLinkedList() {
-	head = new ListNode();
+	head = new ListNode;
 	it = new ListIterator(head);
 }
-
+/* TODO: Finish these methods */
 // SinglyLinkedListList::SinglyLinkedList(int * arr) {
 // 	head = new ListNode;
 
@@ -50,8 +50,12 @@ void SinglyLinkedList::insert_after(int v) {
 	size++;
 }
 
-ListIterator * SinglyLinkedList::find(int v) {
-	it->current = head;
+bool SinglyLinkedList::find(int v) {
+	return (find(head, v) != NULL ? true : false);
+}
+
+ListIterator * SinglyLinkedList::find(ListNode*& node, int v) {
+	it->current = node;
 	while (it->current != NULL) {
 		if (it->current->value == v) {
 			return it;
@@ -63,21 +67,26 @@ ListIterator * SinglyLinkedList::find(int v) {
 
 void SinglyLinkedList::remove(int v) {
 	int i = 0;
-	it = find(v);
+	bool found = false;
+	it->current = head;
 	while (it->current != NULL) {
 		if (it->current->value == v) {
-			ListIterator * tmp = new ListIterator();
-			for (int j = 0; j < i; i++) {
-				tmp->move_forward();
-			}
-			tmp->current->next = it->current->next;
-			delete tmp;
-			delete it->current;
-			it->current = head;
-			size--;
+			found = true;
+			break;
 		}
 		it->move_forward();
 		i++;
+	}
+	cout << i;
+	if (found) {
+		ListIterator * tmp = new ListIterator(head);
+		for (int j = 1; j < i-1; j++) {
+			tmp->move_forward();
+		}
+		tmp->current->next = it->current->next;
+		
+		// it->current = head;
+		size--;
 	}
 }
 

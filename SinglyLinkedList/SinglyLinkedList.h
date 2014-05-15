@@ -14,13 +14,14 @@ class SinglyLinkedList {
 		~SinglyLinkedList();
 		SinglyLinkedList& operator=(const SinglyLinkedList& source);
 		void insert_after(int v);
-		ListIterator * find(int v);
+		bool find(int v);
 		void remove(int v);
 		void print_list();
 	private:
 		ListNode * head;
 		ListIterator * it;
 		int size;
+		ListIterator * find(ListNode* & node, int v);
 		friend class ListNode;
 		friend class ListIterator;
 };
