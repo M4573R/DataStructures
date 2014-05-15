@@ -7,7 +7,8 @@ SinglyLinkedList::SinglyLinkedList() {
 /* TODO: Finish these methods */
 // SinglyLinkedListList::SinglyLinkedList(int * arr) {
 // 	head = new ListNode;
-
+// 	it = new ListIterator(head);
+// 	//
 // }
 
 // SinglyLinkedList::SinglyLinkedListList(const SinglyLinkedListList& source) {
