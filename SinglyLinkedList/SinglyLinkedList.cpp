@@ -38,31 +38,22 @@ SinglyLinkedList::SinglyLinkedList() {
 // }
 
 SinglyLinkedList::~SinglyLinkedList() {
-	it->set_current(head);
-	ListIterator * tmp = new ListIterator(head);
-	while (it->get_current() != NULL) {
-		delete tmp->get_current();
-		it->move_forward();
-		tmp = it;
-	}
-	delete tmp;
 	delete head;
-	delete it;
 }
 
 void SinglyLinkedList::insert_after(int v) {
 	ListNode * n = new ListNode(v);
-	if (it->get_current()->get_next() != NULL) {
-		n->set_next(it->get_current()->get_next());
+	if (it->current->next != NULL) {
+		n->next = it->current->next;
 	}
-	it->get_current()->set_next(n);
+	it->current->next = n;
 	size++;
 }
 
 ListIterator * SinglyLinkedList::find(int v) {
-	it->set_current(head);
-	while (it->get_current() != NULL) {
-		if (it->get_current()->get_value() == v) {
+	it->current = head;
+	while (it->current != NULL) {
+		if (it->current->value == v) {
 			return it;
 		}
 		it->move_forward();
@@ -73,16 +64,16 @@ ListIterator * SinglyLinkedList::find(int v) {
 void SinglyLinkedList::remove(int v) {
 	int i = 0;
 	it = find(v);
-	while (it->get_current() != NULL) {
-		if (it->get_current()->get_value() == v) {
+	while (it->current != NULL) {
+		if (it->current->value == v) {
 			ListIterator * tmp = new ListIterator();
 			for (int j = 0; j < i; i++) {
 				tmp->move_forward();
 			}
-			tmp->get_current()->set_next(it->get_current()->get_next());
+			tmp->current->next = it->current->next;
 			delete tmp;
-			delete it->get_current();
-			it->set_current(head);
+			delete it->current;
+			it->current = head;
 			size--;
 		}
 		it->move_forward();
@@ -90,13 +81,17 @@ void SinglyLinkedList::remove(int v) {
 	}
 }
 
-string SinglyLinkedList::print_list() {
-	string list = "[ ";
-	while (it->get_current() != NULL) {
-		list += to_string(it->get_current()->get_value()) + " -> ";
+void SinglyLinkedList::print_list() {
+	it->current = head;
+	cout << "[";
+	while (it->current != NULL) {
+		cout << std::to_string(it->current->value);
+		if (it->current->next != NULL) {
+			cout << " -> ";
+		}
+		it->move_forward();
 	}
-	list += " ]\n";
-	return list;
+	cout << "]\n";
 }
 
 SinglyLinkedList * reverse(SinglyLinkedList * input) {

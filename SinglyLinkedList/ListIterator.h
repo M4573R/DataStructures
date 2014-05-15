@@ -9,11 +9,11 @@ class ListIterator {
 	public:
 		ListIterator();
 		ListIterator(ListNode * curr);
-		ListNode * get_current();
-		void set_current(ListNode * n);
 		void move_forward();
 	private:
 		ListNode * current;
+		friend class ListNode;
+		friend class SinglyLinkedList;
 };
 
 #endif

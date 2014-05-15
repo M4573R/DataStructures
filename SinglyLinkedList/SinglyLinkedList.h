@@ -6,9 +6,6 @@
 
 using namespace std;
 
-friend ListNode;
-friend ListIterator;
-
 class SinglyLinkedList {
 	public:
 		SinglyLinkedList();
@@ -19,11 +16,13 @@ class SinglyLinkedList {
 		void insert_after(int v);
 		ListIterator * find(int v);
 		void remove(int v);
-		string print_list();
+		void print_list();
 	private:
 		ListNode * head;
 		ListIterator * it;
 		int size;
+		friend class ListNode;
+		friend class ListIterator;
 };
 
 SinglyLinkedList * reverse(SinglyLinkedList * input);

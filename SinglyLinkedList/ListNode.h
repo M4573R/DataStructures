@@ -7,13 +7,12 @@ class ListNode {
 	public:
 		ListNode();
 		ListNode(int v);
-		int get_value();
-		ListNode * get_next();
-		void set_value(int v);
-		void set_next(ListNode * n);
+		~ListNode();
 	private:
 		int value;
 		ListNode * next;
+		friend class ListIterator;
+		friend class SinglyLinkedList;
 };
 
 #endif

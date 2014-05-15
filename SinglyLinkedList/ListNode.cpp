@@ -10,18 +10,6 @@ ListNode::ListNode(int v) {
 	next = NULL;
 }
 
-int ListNode::get_value() {
-	return value;
-}
-
-ListNode * ListNode::get_next() {
-	return next;
-}
-
-void ListNode::set_value(int v) {
-	value = v;
-}
-
-void ListNode::set_next(ListNode * n) {
-	next = n;
+ListNode::~ListNode() {
+	delete next;
 }
