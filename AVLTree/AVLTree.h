@@ -12,14 +12,16 @@ class AVLTree {
 		AVLTree(int * arr);
 		~AVLTree();
 		void insert(int v);
-		void rotation();
+		unsigned int balance_factor(TreeNode*& node);
+		void balance(TreeNode*& node);
+		void rotate_left(TreeNode*& node);
+		void rotate_right(TreeNode*& node);
 		bool find(int v);
 		void remove(int v);
 		void print_tree();
 		TreeNode * find_parent(int v);
 	private:
 		TreeNode * root;
-		// int height;
 		int num_nodes;
 		void insert(TreeNode*& node, int v);
 		TreeNode * find(TreeNode*& node, int v);

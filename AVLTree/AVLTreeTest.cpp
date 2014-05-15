@@ -1,9 +1,10 @@
 #include <iostream>
-#include "BinarySearchTree.h"
+#include "AVLTree.h"
 
 using namespace std;
 
 int main() {
+	cout<<"HELLO";
 	AVLTree * avl = new AVLTree();
 	avl->insert(15);
 	avl->insert(6);

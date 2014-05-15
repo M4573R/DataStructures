@@ -1,33 +1,39 @@
 #include <assert.h>
-#include "BinarySearchTree.h"
+#include "AVLTree.h"
 
-BinarySearchTree::BinarySearchTree() {
+AVLTree::AVLTree() {
 	root = NULL;
 }
 
-BinarySearchTree::BinarySearchTree(int * arr) {
-	root = NULL;
-	cout << sizeof(arr)/sizeof(*arr);
-	for (int i = 0; i < (sizeof(arr)/sizeof(*arr)); i++) {
-		cout << arr[i] << ",";
-		insert(arr[i]);
-	}
-}
+// AVLTree::AVLTree(int * arr) {
+// 	root = NULL;
+// 	cout << sizeof(arr)/sizeof(*arr);
+// 	for (int i = 0; i < (sizeof(arr)/sizeof(*arr)); i++) {
+// 		cout << arr[i] << ",";
+// 		insert(arr[i]);
+// 	}
+// }
 
-BinarySearchTree::~BinarySearchTree() {
+AVLTree::~AVLTree() {
 	delete root;
 }
 
-void BinarySearchTree::insert(int v) {
+unsigned int AVLTree::balance_factor(TreeNode*& node) {
+	return 1+(node == NULL ? 0: max(balance_factor(node->left), balance_factor(node->right)));
+}
+
+void AVLTree::insert(int v) {
 	insert(root, v);
 }
 
-void BinarySearchTree::insert(TreeNode*& node, int v) {
+void AVLTree::insert(TreeNode*& node, int v) {
 	if (node == NULL) {
 		node = new TreeNode(v);
 		TreeNode * parent = find_parent(v);
 		node->parent = parent;
 		num_nodes++;
+		balance(root);
+		return;
 	}
 
 	else if (v > node -> value) {
@@ -43,11 +49,49 @@ void BinarySearchTree::insert(TreeNode*& node, int v) {
 	}
 }
 
-TreeNode * BinarySearchTree::find_parent(int v) {
+void AVLTree::balance(TreeNode*& node) {
+	if (balance_factor(root) == 2) {
+		TreeNode * l = node->left;
+		if (balance_factor(l) == -1) {
+			rotate_left(l);
+		}
+		rotate_right(node);
+	}
+	else {
+		TreeNode * r = node->right;
+		if (balance_factor(r) == 1) {
+			rotate_right(r);
+		}
+		rotate_left(node);
+	}
+}
+
+void AVLTree::rotate_left(TreeNode*& node) {
+	TreeNode* tmp = node->left;
+	node->left = tmp->right;
+	tmp->right = node;
+	node = tmp;
+}
+
+void AVLTree::rotate_left_twice(TreeNode*& node) {
+	TreeNode* tmp = node->left;
+	node->left = tmp->right;
+	tmp->right = node;
+	node = tmp;
+}
+
+void AVLTree::rotate_right(TreeNode*& node) {
+	TreeNode* tmp = node->right;
+	node->right = tmp->left;
+	tmp->left = node;
+	node = tmp;
+}
+
+TreeNode * AVLTree::find_parent(int v) {
 	return find_parent(root, NULL, v);
 }
 
-TreeNode * BinarySearchTree::find_parent(TreeNode*& node, TreeNode* parent, int v) {
+TreeNode * AVLTree::find_parent(TreeNode*& node, TreeNode* parent, int v) {
 	if (node == NULL) {
 		return NULL;
 	}
@@ -61,11 +105,11 @@ TreeNode * BinarySearchTree::find_parent(TreeNode*& node, TreeNode* parent, int 
 	return parent;
 }
 
-bool BinarySearchTree::find(int v) {
+bool AVLTree::find(int v) {
 	return (find(root, v) != NULL);
 }
 
-TreeNode * BinarySearchTree::find(TreeNode*& node, int v) {
+TreeNode * AVLTree::find(TreeNode*& node, int v) {
 	if (node == NULL) {
 		return node;
 	}
@@ -84,18 +128,18 @@ TreeNode * BinarySearchTree::find(TreeNode*& node, int v) {
 
 }
 
-void BinarySearchTree::remove(int v) {
+void AVLTree::remove(int v) {
 	remove(root, v);
 }
 
-TreeNode * BinarySearchTree::find_min(TreeNode* node) {
+TreeNode * AVLTree::find_min(TreeNode* node) {
 	while (node -> left != NULL) {
 		node = node -> left;
 	}
 	return node;
 }
 
-void BinarySearchTree::replace_node(TreeNode * node1, TreeNode * node2) {
+void AVLTree::replace_node(TreeNode * node1, TreeNode * node2) {
 	if (node1 -> parent != NULL) {
 		if (node1 == node1->parent->left) {
 			node1 -> parent -> left = node2;
@@ -110,7 +154,7 @@ void BinarySearchTree::replace_node(TreeNode * node1, TreeNode * node2) {
 	}
 }
 
-void BinarySearchTree::remove(TreeNode* node, int v) {
+void AVLTree::remove(TreeNode* node, int v) {
 	if (v < node->value) {
 		remove(node->left,v);
 	}
@@ -135,13 +179,13 @@ void BinarySearchTree::remove(TreeNode* node, int v) {
 	}
 }
 
-void BinarySearchTree::print_tree() {
+void AVLTree::print_tree() {
 	return print_tree(root);
 	cout << endl;
 	cout << "number of nodes: " << num_nodes << endl;
 }
 
-void BinarySearchTree::print_tree(TreeNode*& node) {
+void AVLTree::print_tree(TreeNode*& node) {
 	if (root == NULL) {
 		cout << "Empty Tree" << endl;
 		return;

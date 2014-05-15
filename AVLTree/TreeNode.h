@@ -15,7 +15,7 @@ class TreeNode {
 		TreeNode * parent;
 		TreeNode * left;
 		TreeNode * right;
-		friend class BinarySearchTree;
+		friend class AVLTree;
 };
 
 #endif
