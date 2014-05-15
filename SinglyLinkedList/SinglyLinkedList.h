@@ -13,7 +13,8 @@ class SinglyLinkedList {
 		SinglyLinkedList(const SinglyLinkedList& source);
 		~SinglyLinkedList();
 		SinglyLinkedList& operator=(const SinglyLinkedList& source);
-		void insert_after(int v);
+		void insert_after(int prev, int v);
+		void insert_at_head(int v);
 		bool find(int v);
 		void remove(int v);
 		void print_list();
@@ -21,7 +22,7 @@ class SinglyLinkedList {
 		ListNode * head;
 		ListIterator * it;
 		int size;
-		ListIterator * find(ListNode* & node, int v);
+		ListNode * find(ListNode* & node, int v);
 		friend class ListNode;
 		friend class ListIterator;
 };
