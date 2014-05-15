@@ -45,6 +45,7 @@ void SinglyLinkedList::insert_after(int prev, int v) {
 	it->current = find(head,prev);
 	if (it->current == NULL) {
 		insert_at_head(v);
+		return;
 	}
 	ListNode * n = new ListNode(v);
 	if (it->current->next != NULL) {
@@ -52,7 +53,6 @@ void SinglyLinkedList::insert_after(int prev, int v) {
 	}
 	it->current->next = n;
 	size++;
-	cout << "INSERTED " << it->current->value;
 }
 
 void SinglyLinkedList::insert_at_head(int v) {
@@ -63,7 +63,6 @@ void SinglyLinkedList::insert_at_head(int v) {
 	}
 	it->current->next = n;
 	size++;	
-	cout << "INSERTED " << it->current->value;
 }
 
 bool SinglyLinkedList::find(int v) {
