@@ -27,5 +27,13 @@ int main() {
 	cout << "Finding allo " << t -> find("allo") << endl;
 	cout << "Finding all " << t -> find("all") << endl;
 
+	cout << "Removing allo..." << endl;
+	t -> remove("allo");
+	cout << "Finding hullo " << t -> find("hullo") << endl;
+	cout << "Finding ollo " << t -> find("ollo") << endl;
+	cout << "Finding allo " << t -> find("allo") << endl;
+	cout << "Finding all " << t -> find("all") << endl;
+
+
 	return 0;
 }

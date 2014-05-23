@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <assert.h>
+#include <string>
 #include "Node.h"
 
 using namespace std;
@@ -12,7 +13,9 @@ class Trie {
 		Trie();
 		~Trie();
 		void insert(string s);
+		Node * find(string s, Node*& start);
 		bool find(string s);
+		void remove(string s);
 	private:
 		Node * root;
 		friend class Node;
